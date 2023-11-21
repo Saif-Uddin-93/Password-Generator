@@ -102,11 +102,9 @@ const upperCasedCharacters = [
 
 const minLength = 8;
 const maxLength = 128;
-let userPassLength = (defaultLength) => {
-  defaultLength = defaultLength<minLength || defaultLength>maxLength ? Math.floor(Math.random()*(maxLength-minLength)+minLength) : defaultLength
-  return defaultLength;
+let passwordLength = (length) => {
+  return length = length<minLength || length>maxLength ? Math.floor(Math.random()*(maxLength-minLength)+minLength) : length;
 };
-//alert(userPassLength(128));
 
 const characters = [
   specialCharacters,
@@ -127,7 +125,10 @@ function getRandom(arr) {
 
 // Function to generate password with user input
 function generatePassword() {
-  const passLength = Math.floor(Math.random()*(maxLength-minLength) + minLength);
+  let passLength = passwordLength(Number(prompt(
+`Enter a number that you want the length of your password to be.
+Any number not between 8 - 128 will default to a number in that range.`)));
+  alert(`Password Length is ${passLength}`);
   let pass = "";
   for (let index = 0; index < passLength; index++) {
     pass = pass.concat(getRandom(characters[Math.floor(Math.random()*characters.length)]));
