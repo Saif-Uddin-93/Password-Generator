@@ -102,6 +102,11 @@ const upperCasedCharacters = [
 
 const minLength = 8;
 const maxLength = 128;
+let userPassLength = (defaultLength) => {
+  defaultLength = defaultLength<minLength || defaultLength>maxLength ? Math.floor(Math.random()*(maxLength-minLength)+minLength) : defaultLength
+  return defaultLength;
+};
+//alert(userPassLength(128));
 
 const characters = [
   specialCharacters,
