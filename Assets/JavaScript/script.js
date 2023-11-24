@@ -103,15 +103,15 @@ const upperCasedCharacters = [
 const minLength = 8;
 const maxLength = 128;
 let range = [];
-function loop (max=maxLength , num=minLength, arr=[]){
+function loop (arr=[], num=minLength, max=maxLength){
   arr.push(num);
   num += 1;
-  if(num != max+1){
-    loop(max, num, arr);
-  } else range = arr;
+  if(num < max+1){
+    loop(arr, num);
+  }// else return {arr: arr}
 }
-loop();
-//alert(range);
+loop(range);
+//console.log(range);
 
 let passwordLength = (length) => {
   return length = length<minLength || length>maxLength ? Math.floor(Math.random()*(maxLength-minLength)+minLength) : length;
@@ -133,18 +133,20 @@ function getPasswordOptions() {
 function getRandom(arr) {
   if(arr !== undefined) return arr[Math.floor(Math.random()*arr.length)];
 }
-
+let userInput = 0;
 function PromptUser () {
-  let userInput = Number(prompt("Enter a number that you want the length of your password to be.\nAny number not between 8 - 128 will default to a number in that range."));
+  userInput = Number(prompt("Enter a number that you want the length of your password to be."));
   if(!range.includes(userInput)) {
-    alert("Please enter a whole number between 8 - 128")
+    alert("Please enter a whole number between 8 - 128");
     PromptUser();
-  } else return {userInput: userInput};
+  }
 }
 
 // Function to generate password with user input
 function generatePassword() {
-  let passLength = passwordLength(PromptUser().userInput);
+  PromptUser();
+  console.log(userInput);
+  let passLength = passwordLength(userInput);
   alert(`Password Length is ${passLength}`);
   let pass = "";
   for (let index = 0; index < passLength; index++) {
