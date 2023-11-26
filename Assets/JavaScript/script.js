@@ -117,6 +117,7 @@ loop(range); */
 
 let passSlider = document.getElementById("password-slider");
 let outputPassLength = document.getElementById("password-length-value");
+//display inital value in HTML before any input with slider
 outputPassLength.innerHTML = passSlider.value;
 
 passSlider.oninput = function() {
@@ -159,22 +160,39 @@ function generatePassword() {
   //console.log(userInput);
   //let passLength = passwordLength(userInput);
   //alert(`Password Length is ${passLength}`);
-  let passLength = passSlider.value;
+  let passLength = Number(passSlider.value);
   let pass = "";
+  let charPos = 4;
+  let arrayIndex = 0;
   for (let index = 0; index < passLength; index++) {
-    pass = pass.concat(getRandom(characters[Math.floor(Math.random()*characters.length)]));
+    // if statement to ensurethe last 4 chcaracters of the password uses of of each required characters.
+    if(index===passLength-charPos /* && containsCharacters(pass, characters[arrayIndex]) */) {
+      console.log(pass);
+      pass = pass.concat(getRandom(characters[arrayIndex]));
+      console.log(`At character index: ${index} is character: ${pass[index]}, used from characters[${arrayIndex}]`);
+      console.log(pass);
+      charPos -= 1;
+      arrayIndex += 1;
+    }else {
+      pass = pass.concat(getRandom(characters[Math.floor(Math.random()*characters.length)]));
+    }
   }
   return {pass: pass, passLength: passLength};
 }
+
+/* function containsCharacters(inputString, charArray) {
+  return charArray.some(char => inputString.includes(char));
+} */
+
 //alert(`Password is: ${generatePassword().pass}\nPassword Length is: ${generatePassword().passLength}`);
 
 // Get references to the #generate element
-var generateBtn = document.querySelector('#generate');
+const generateBtn = document.querySelector('#generate');
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword().pass;
-  var passwordText = document.querySelector('#password');
+  const password = generatePassword().pass;
+  const passwordText = document.querySelector('#password');
 
   passwordText.value = password;
 }
