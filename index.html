@@ -23,9 +23,13 @@
             placeholder="Your Secure Password"
             aria-label="Generated Password"
           ></textarea>
-        </div>
+        </div>        
         <div class="card-footer">
           <button id="generate" class="btn">Generate Password</button>
+        </div>
+        <p>Password Length: <span id="password-length-value"></span></p>
+        <div class="slidecontainer">
+          <input type="range" min="8" max="128" value="8" class="slider" id="password-slider">
         </div>
       </div>
     </div>

@@ -30,6 +30,21 @@ header {
   color: hsl(206, 17%, 28%);
 }
 
+.slidecontainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.slider {
+  width: 100%;
+
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
 .card {
   background-color: hsl(0, 0%, 100%);
   border-radius: 5px;

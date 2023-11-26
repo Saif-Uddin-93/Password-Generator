@@ -105,13 +105,24 @@ const maxLength = 128;
 let range = [];
 function loop (arr=[], num=minLength, max=maxLength){
   arr.push(num);
+  //console.log(arr);
   num += 1;
   if(num < max+1){
     loop(arr, num);
   }// else return {arr: arr}
 }
 loop(range);
+//const range = loop().arr;
 //console.log(range);
+
+
+let passSlider = document.getElementById("password-slider");
+let outputPassLength = document.getElementById("password-length-value");
+outputPassLength.innerHTML = passSlider.value;
+
+passSlider.oninput = function() {
+  outputPassLength.innerHTML = this.value;
+}
 
 let passwordLength = (length) => {
   return length = length<minLength || length>maxLength ? Math.floor(Math.random()*(maxLength-minLength)+minLength) : length;
@@ -133,9 +144,10 @@ function getPasswordOptions() {
 function getRandom(arr) {
   if(arr !== undefined) return arr[Math.floor(Math.random()*arr.length)];
 }
+
 let userInput = 0;
 function PromptUser () {
-  userInput = Number(prompt("Enter a number that you want the length of your password to be."));
+  userInput = Number(prompt("Enter a number between 8 - 128 for the password length."));
   if(!range.includes(userInput)) {
     alert("Please enter a whole number between 8 - 128");
     PromptUser();
