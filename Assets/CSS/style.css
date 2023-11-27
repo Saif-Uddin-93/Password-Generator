@@ -30,10 +30,14 @@ header {
   color: hsl(206, 17%, 28%);
 }
 
-.slidecontainer {
+#password-options {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+}
+
+.hidden {
+  display: none !important;
 }
 
 .slider {
@@ -49,7 +53,6 @@ li label {
   width: 100%;
   text-align: end;
 }
-
 
 .checkbox, #password-length-value {
   position: absolute;
@@ -113,8 +116,9 @@ li {
   border: none;
   background-color: hsl(360, 91%, 36%);
   border-radius: 25px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px 0px rgba(0, 0, 0, 0.2) 0px 1px 1px
-    0px;
+  box-shadow: 
+    rgba(0, 0, 0, 0.1) 0px 1px 6px 0px,
+    rgba(0, 0, 0, 0.2) 0px 1px 1px 0px;
   color: hsl(0, 0%, 100%);
   display: inline-block;
   font-size: 22px;
@@ -123,6 +127,10 @@ li {
   padding: 14px 34px;
   text-align: center;
   cursor: pointer;
+}
+
+#options {
+  background-color: blue;
 }
 
 button[disabled] {

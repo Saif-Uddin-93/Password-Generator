@@ -26,10 +26,11 @@
         </div>        
         <div class="card-footer">
           <button id="generate" class="btn">Generate Password</button>
+          <button id="options" class="btn">Options</button>
         </div>
-        <form class="slidecontainer">
+        <form id="password-options" class="hidden">
           <label>Password Length: </label><span id="password-length-value"></span>
-          <input type="range" min="8" max="128" value="68" class="slider" id="password-slider">
+          <input type="range" min="8" max="128" value="16" class="slider" id="password-slider">
           <ul>
             <li>
               <label>Special characters</label>

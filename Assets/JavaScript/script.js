@@ -9,8 +9,8 @@ Numeric
 Special characters ($@%&*, etc)
 Code should validate for each input and at least one character type should be selected
 Once prompts are answered then the password should be generated and displayed in an alert or written to the page */
-// Array of special characters to be included in password
 
+// Array of special characters to be included in password
 const specialCharacters = [
   '@',
   '%',
@@ -116,26 +116,21 @@ loop(range); */
 //console.log(range);
 
 const passSlider = document.getElementById("password-slider");
-let outputPassLength = document.getElementById("password-length-value");
+const outputPassLength = document.getElementById("password-length-value");
 //display inital value in HTML before any input with slider
 outputPassLength.innerHTML = passSlider.value;
 //update value in page when slider handle moves
 passSlider.oninput = () => outputPassLength.innerHTML = passSlider.value;
 
 const specialCheckbox = document.getElementById("special-checkbox");
-let boolSpecial = specialCheckbox.checked;
 const numbersCheckbox = document.getElementById("numbers-checkbox");
-let boolNumbers = numbersCheckbox.checked;
-
 
 /* let passwordLength = (length) => {
   return length = length<minLength || length>maxLength ? Math.floor(Math.random()*(maxLength-minLength)+minLength) : length;
 }; */
 
-
-
-let characters = () => {
-  let arr = [lowerCasedCharacters, upperCasedCharacters];
+const characters = () => {
+  const arr = [lowerCasedCharacters, upperCasedCharacters];
   if (specialCheckbox.checked) arr.push(specialCharacters);
   if (numbersCheckbox.checked) arr.push(numericCharacters);
   return arr;
@@ -147,9 +142,7 @@ function getPasswordOptions() {
 } */
 
 // Function for getting a random element from an array
-function getRandom(arr) {
-  if(arr !== undefined) return arr[Math.floor(Math.random()*arr.length)];
-}
+const getRandom = (arr) => {if(arr !== undefined) return arr[Math.floor(Math.random()*arr.length)];};
 
 /* let userInput = 0;
 function PromptUser () {
@@ -166,7 +159,7 @@ function generatePassword() {
   //console.log(userInput);
   //let passLength = passwordLength(userInput);
   //alert(`Password Length is ${passLength}`);
-  let passLength = Number(passSlider.value);
+  const passLength = Number(passSlider.value);
   let pass = "";
   let charPos = characters().length;
   let arrayIndex = 0;
@@ -193,8 +186,9 @@ function generatePassword() {
 
 //alert(`Password is: ${generatePassword().pass}\nPassword Length is: ${generatePassword().passLength}`);
 
-// Get references to the #generate element
+// Get references to the #generate and #options element
 const generateBtn = document.querySelector('#generate');
+const optionsBtn = document.querySelector('#options');
 
 // Write password to the #password input
 function writePassword() {
@@ -204,5 +198,15 @@ function writePassword() {
   passwordText.value = password;
 }
 
-// Add event listener to generate button
+// Toggle password options displaying on screen
+function ToggPassOpt() {
+  const boolHidden = document.getElementById("password-options"); 
+  if (!boolHidden.classList.contains('hidden')) {
+    boolHidden.classList.add('hidden');
+  } else { boolHidden.classList.remove('hidden'); }
+}
+
+// Add event listener to generate button and options button
 generateBtn.addEventListener('click', writePassword);
+
+optionsBtn.addEventListener('click', ToggPassOpt);
