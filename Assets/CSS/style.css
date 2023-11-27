@@ -130,7 +130,7 @@ li {
 }
 
 #options {
-  background-color: blue;
+  background-color: rgb(0, 42, 255);
 }
 
 button[disabled] {
@@ -168,6 +168,10 @@ button[disabled] {
     font-size: 1rem;
     margin: 16px 0px 0px 0px;
     padding: 10px 15px;
+  }
+
+  #password-options {
+    margin-top: 20px;
   }
 
   #password {

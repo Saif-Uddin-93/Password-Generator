@@ -10,7 +10,7 @@ Special characters ($@%&*, etc)
 Code should validate for each input and at least one character type should be selected
 Once prompts are answered then the password should be generated and displayed in an alert or written to the page */
 
-// Array of special characters to be included in password
+// --- Array of special characters to be included in password ---
 const specialCharacters = [
   '@',
   '%',
@@ -37,10 +37,10 @@ const specialCharacters = [
   '.'
 ];
 
-// Array of numeric characters to be included in password
+// --- Array of numeric characters to be included in password ---
 const numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-// Array of lowercase characters to be included in password
+// --- Array of lowercase characters to be included in password ---
 const lowerCasedCharacters = [
   'a',
   'b',
@@ -70,7 +70,7 @@ const lowerCasedCharacters = [
   'z'
 ];
 
-// Array of uppercase characters to be included in password
+// --- Array of uppercase characters to be included in password ---
 const upperCasedCharacters = [
   'A',
   'B',
@@ -117,9 +117,9 @@ loop(range); */
 
 const passSlider = document.getElementById("password-slider");
 const outputPassLength = document.getElementById("password-length-value");
-//display inital value in HTML before any input with slider
+// --- display inital value in HTML before any input with slider ---
 outputPassLength.innerHTML = passSlider.value;
-//update value in page when slider handle moves
+// --- update value in page when slider handle moves ---
 passSlider.oninput = () => outputPassLength.innerHTML = passSlider.value;
 
 const specialCheckbox = document.getElementById("special-checkbox");
@@ -129,6 +129,7 @@ const numbersCheckbox = document.getElementById("numbers-checkbox");
   return length = length<minLength || length>maxLength ? Math.floor(Math.random()*(maxLength-minLength)+minLength) : length;
 }; */
 
+// --- Build characters array according to selected password options ---
 const characters = () => {
   const arr = [lowerCasedCharacters, upperCasedCharacters];
   if (specialCheckbox.checked) arr.push(specialCharacters);
@@ -136,13 +137,13 @@ const characters = () => {
   return arr;
 };
 
-/* // Function to prompt user for password options
-function getPasswordOptions() {
+// --- Function to prompt user for password options ---
+/*function getPasswordOptions() {
 
 } */
 
-// Function for getting a random element from an array
-const getRandom = (arr) => {if(arr !== undefined) return arr[Math.floor(Math.random()*arr.length)];};
+// --- Function for getting a random element from an array ---
+const getRandom = (arr) => {/* if(arr !== undefined) */ return arr[Math.floor(Math.random()*arr.length)];};
 
 /* let userInput = 0;
 function PromptUser () {
@@ -153,7 +154,7 @@ function PromptUser () {
   }
 } */
 
-// Function to generate password with user input
+// --- Function to generate password with user input ---
 function generatePassword() {
   //PromptUser();
   //console.log(userInput);
@@ -163,20 +164,40 @@ function generatePassword() {
   let pass = "";
   let charPos = characters().length;
   let arrayIndex = 0;
-  for (let index = 0; index < passLength; index++) {
-    // if statement to ensurethe last 4 chcaracters of the password uses of of each required characters.
-    if(index===passLength-charPos /* && containsCharacters(pass, characters[arrayIndex]) */) {
-      console.log(charPos);
-      console.log(pass);
+  /* for (let index = 0; index < passLength; index++) {
+    // --- if statement to ensure the last chcaracters of the password uses each the selected characters types ---
+    if(index===passLength-charPos) //&& containsCharacters(pass, characters[arrayIndex])) 
+    {
+      //console.log(charPos);
+      //console.log(pass);
       pass = pass.concat(getRandom(characters()[arrayIndex]));
-      console.log(`At character index: ${index} is character: ${pass[index]}, used from characters[${arrayIndex}]`);
-      console.log(pass);
+      //console.log(`At character index: ${index} is character: ${pass[index]}, used from characters[${arrayIndex}]`);
+      //console.log(pass);
       charPos --;
       arrayIndex ++;
     }else {
       pass = pass.concat(getRandom(characters()[Math.floor(Math.random()*characters().length)]));
+    } 
+  } */ 
+
+  // --- Created loop without for loop using tail recursion ---
+  function loop (i=0, c_pos = charPos, arr_in = arrayIndex)
+  {
+    if(i===passLength-charPos) 
+    {
+      pass = pass.concat(getRandom(characters()[arr_in]));
+      c_pos--;
+      arr_in++;
+    } else {
+      pass = pass.concat(getRandom(characters()[Math.floor(Math.random()*characters().length)]));
+    }
+    i++;
+    if (i<passLength)
+    {
+      loop(i, c_pos, arr_in);
     }
   }
+  loop();
   return {pass: pass, passLength: passLength};
 }
 
@@ -208,5 +229,4 @@ function ToggPassOpt() {
 
 // Add event listener to generate button and options button
 generateBtn.addEventListener('click', writePassword);
-
 optionsBtn.addEventListener('click', ToggPassOpt);
