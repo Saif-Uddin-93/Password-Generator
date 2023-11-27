@@ -27,10 +27,20 @@
         <div class="card-footer">
           <button id="generate" class="btn">Generate Password</button>
         </div>
-        <p>Password Length: <span id="password-length-value"></span></p>
-        <div class="slidecontainer">
+        <form class="slidecontainer">
+          <label>Password Length: </label><span id="password-length-value"></span>
           <input type="range" min="8" max="128" value="68" class="slider" id="password-slider">
-        </div>
+          <ul>
+            <li>
+              <label>Special characters</label>
+              <input type="checkbox" name="option1" value="true" checked class = "checkbox" id="special-checkbox">
+            </li>
+            <li>
+              <label>Numbers</label>
+              <input type="checkbox" name="option1" value="true" checked class = "checkbox" id="numbers-checkbox">
+            </li>
+          </ul>
+        </form>
       </div>
     </div>
     <script src="./Assets/JavaScript/script.js"></script>

@@ -32,17 +32,39 @@ header {
 
 .slidecontainer {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
   width: 100%;
 }
 
 .slider {
   width: 100%;
-
+  margin-top: 10px;
 }
 
 .slider:hover {
   opacity: 1;
+}
+
+li label {
+  width: 100%;
+  text-align: end;
+}
+
+
+.checkbox, #password-length-value {
+  position: absolute;
+  margin-left: 160px;
+}
+
+ul
+{
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .card {

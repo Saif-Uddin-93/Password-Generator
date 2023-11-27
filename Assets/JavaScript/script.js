@@ -115,25 +115,31 @@ loop(range); */
 //const range = loop().arr;
 //console.log(range);
 
-let passSlider = document.getElementById("password-slider");
+const passSlider = document.getElementById("password-slider");
 let outputPassLength = document.getElementById("password-length-value");
 //display inital value in HTML before any input with slider
 outputPassLength.innerHTML = passSlider.value;
+//update value in page when slider handle moves
+passSlider.oninput = () => outputPassLength.innerHTML = passSlider.value;
 
-passSlider.oninput = function() {
-  outputPassLength.innerHTML = this.value;
-}
+const specialCheckbox = document.getElementById("special-checkbox");
+let boolSpecial = specialCheckbox.checked;
+const numbersCheckbox = document.getElementById("numbers-checkbox");
+let boolNumbers = numbersCheckbox.checked;
+
 
 /* let passwordLength = (length) => {
   return length = length<minLength || length>maxLength ? Math.floor(Math.random()*(maxLength-minLength)+minLength) : length;
 }; */
 
-const characters = [
-  specialCharacters,
-  numericCharacters,
-  lowerCasedCharacters,
-  upperCasedCharacters
-]
+
+
+let characters = () => {
+  let arr = [lowerCasedCharacters, upperCasedCharacters];
+  if (specialCheckbox.checked) arr.push(specialCharacters);
+  if (numbersCheckbox.checked) arr.push(numericCharacters);
+  return arr;
+};
 
 /* // Function to prompt user for password options
 function getPasswordOptions() {
@@ -162,19 +168,20 @@ function generatePassword() {
   //alert(`Password Length is ${passLength}`);
   let passLength = Number(passSlider.value);
   let pass = "";
-  let charPos = 4;
+  let charPos = characters().length;
   let arrayIndex = 0;
   for (let index = 0; index < passLength; index++) {
     // if statement to ensurethe last 4 chcaracters of the password uses of of each required characters.
     if(index===passLength-charPos /* && containsCharacters(pass, characters[arrayIndex]) */) {
+      console.log(charPos);
       console.log(pass);
-      pass = pass.concat(getRandom(characters[arrayIndex]));
+      pass = pass.concat(getRandom(characters()[arrayIndex]));
       console.log(`At character index: ${index} is character: ${pass[index]}, used from characters[${arrayIndex}]`);
       console.log(pass);
-      charPos -= 1;
-      arrayIndex += 1;
+      charPos --;
+      arrayIndex ++;
     }else {
-      pass = pass.concat(getRandom(characters[Math.floor(Math.random()*characters.length)]));
+      pass = pass.concat(getRandom(characters()[Math.floor(Math.random()*characters().length)]));
     }
   }
   return {pass: pass, passLength: passLength};
