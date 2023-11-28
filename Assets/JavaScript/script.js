@@ -230,8 +230,9 @@ function PassCopy(params) {
 }
 
 // Toggle password options displaying on screen
-function ToggPassOpt() {
-  const boolHidden = document.getElementById("password-options"); 
+function ToggleHidden() {
+  //console.log(this.dataset.test);
+  const boolHidden = document.getElementById(this.dataset.linked); 
   if (!boolHidden.classList.contains('hidden')) {
     boolHidden.classList.add('hidden');
   } else { boolHidden.classList.remove('hidden'); }
@@ -240,4 +241,4 @@ function ToggPassOpt() {
 // Add event listener to generate button and options button
 generateBtn.addEventListener('click', writePassword);
 copyBtn.addEventListener('click', PassCopy);
-optionsBtn.addEventListener('click', ToggPassOpt);
+optionsBtn.addEventListener('click', ToggleHidden);
