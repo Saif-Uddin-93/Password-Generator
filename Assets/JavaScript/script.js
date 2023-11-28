@@ -207,8 +207,9 @@ function generatePassword() {
 
 //alert(`Password is: ${generatePassword().pass}\nPassword Length is: ${generatePassword().passLength}`);
 
-// Get references to the #generate and #options element
+// Get references to the #generate, #copy and #options element
 const generateBtn = document.querySelector('#generate');
+const copyBtn = document.querySelector('#copy');
 const optionsBtn = document.querySelector('#options');
 
 // Write password to the #password input
@@ -217,6 +218,14 @@ function writePassword() {
   const passwordText = document.querySelector('#password');
 
   passwordText.value = password;
+}
+
+// Copy password to clipboard
+function PassCopy(params) {
+  const passwordText = document.querySelector('#password');
+  navigator.clipboard.writeText(passwordText.value);
+  const copiedText = passwordText.value;
+  alert("Copied: " + copiedText);
 }
 
 // Toggle password options displaying on screen
@@ -229,4 +238,5 @@ function ToggPassOpt() {
 
 // Add event listener to generate button and options button
 generateBtn.addEventListener('click', writePassword);
+copyBtn.addEventListener('click', PassCopy);
 optionsBtn.addEventListener('click', ToggPassOpt);
