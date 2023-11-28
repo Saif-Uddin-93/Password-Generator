@@ -180,11 +180,11 @@ function generatePassword() {
     } 
   } */ 
 
-  // --- Created loop without for loop using tail recursion ---
-  function loop (i=0, c_pos = charPos, arr_in = arrayIndex)
+  // --- Created loop without for-loop using tail recursion ---
+  function loop (i=0, c_pos=charPos, arr_in=arrayIndex)
   {
-    if(i===passLength-charPos) 
-    {
+    if(i===passLength-c_pos) 
+    {// --- if statement to ensure the last chcaracters of the password uses each the selected characters types ---
       pass = pass.concat(getRandom(characters()[arr_in]));
       c_pos--;
       arr_in++;
