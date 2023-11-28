@@ -30,7 +30,8 @@
           <button id="options" class="btn">Options</button>
         </div>
         <form id="password-options" class="hidden">
-          <label for="password-slider">Password Length: </label><span id="password-length-value"></span>
+          <label for="password-slider">Password Length:</label>
+          <input id="password-length-value" type="number" min="8" max="128" class=""><span class="range-info">(min: 8 max: 128)</span></input>
           <input type="range" min="8" max="128" value="16" class="slider" id="password-slider">
           <ul>
             <li>

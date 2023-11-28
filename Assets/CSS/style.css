@@ -137,6 +137,10 @@ li {
   background-color: rgb(0, 42, 255);
 }
 
+.range-info {
+  margin-left: 95px;
+}
+
 button[disabled] {
   cursor: default;
   background: #c0c7cf;

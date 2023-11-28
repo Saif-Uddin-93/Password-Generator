@@ -118,9 +118,10 @@ loop(range); */
 const passSlider = document.getElementById("password-slider");
 const outputPassLength = document.getElementById("password-length-value");
 // --- display inital value in HTML before any input with slider ---
-outputPassLength.innerHTML = passSlider.value;
+outputPassLength.value = passSlider.value;
 // --- update value in page when slider handle moves ---
-passSlider.oninput = () => outputPassLength.innerHTML = passSlider.value;
+passSlider.oninput = () => outputPassLength.value = passSlider.value;
+outputPassLength.oninput = () => passSlider.value = outputPassLength.value;
 
 const specialCheckbox = document.getElementById("special-checkbox");
 const numbersCheckbox = document.getElementById("numbers-checkbox");
