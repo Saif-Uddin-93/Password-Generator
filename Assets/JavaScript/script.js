@@ -208,37 +208,39 @@ function generatePassword() {
 
 //alert(`Password is: ${generatePassword().pass}\nPassword Length is: ${generatePassword().passLength}`);
 
-// Get references to the #generate, #copy and #options element
-const generateBtn = document.querySelector('#generate');
-const copyBtn = document.querySelector('#copy');
-const optionsBtn = document.querySelector('#options');
-
 // Write password to the #password input
-function writePassword() {
+function writePassword(eventObj) {
   const password = generatePassword().pass;
-  const passwordText = document.querySelector('#password');
-
+  const passwordText = document.getElementById(eventObj.target.dataset.event);
   passwordText.value = password;
 }
 
 // Copy password to clipboard
-function PassCopy() {
-  const passwordText = document.querySelector('#password');
+function PassCopy(eventObj) {
+  const passwordText = document.getElementById(eventObj.target.dataset.event);
   navigator.clipboard.writeText(passwordText.value);
   const copiedText = passwordText.value;
   alert("Copied: " + copiedText);
 }
 
 // Toggle password options displaying on screen
-function ToggleHidden() {
-  //console.log(this.dataset.test);
-  const boolHidden = document.getElementById(this.dataset.linked); 
-  if (!boolHidden.classList.contains('hidden')) {
-    boolHidden.classList.add('hidden');
-  } else { boolHidden.classList.remove('hidden'); }
+function toggleHide(eventObj){
+  const optionsBtn = document.getElementById(eventObj.target.dataset.event);
+  if (!optionsBtn.classList.contains('hidden')) {
+    optionsBtn.classList.add('hidden');
+  } else { optionsBtn.classList.remove('hidden')}
 }
 
 // Add event listener to 'generate', 'copy' and 'options' buttons
-generateBtn.addEventListener('click', writePassword);
-copyBtn.addEventListener('click', PassCopy);
-optionsBtn.addEventListener('click', ToggleHidden);
+addGlobalEventListener('click', '#options', toggleHide);
+addGlobalEventListener('click', '#copy', PassCopy);
+addGlobalEventListener('click', '#generate', writePassword);
+
+function addGlobalEventListener(typeOfEvent, selector, callback, stopPropagation=true) {
+  document.addEventListener(typeOfEvent, (eventObj) => {
+    if (eventObj.target.matches(selector)) { 
+      callback(eventObj);
+    }
+    if(stopPropagation){eventObj.stopPropagation();}
+  })
+}
