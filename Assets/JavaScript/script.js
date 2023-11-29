@@ -210,35 +210,78 @@ function generatePassword() {
 
 // Get references to the #generate, #copy and #options element
 const generateBtn = document.querySelector('#generate');
-const copyBtn = document.querySelector('#copy');
-const optionsBtn = document.querySelector('#options');
+//const copyBtn = document.querySelector('#copy');
+//const optionsBtn = document.querySelector('#options');
 
 // Write password to the #password input
-function writePassword() {
+function writePassword(eventObj) {
   const password = generatePassword().pass;
-  const passwordText = document.querySelector('#password');
+  const passwordText = document.getElementById(eventObj.target.dataset.pass);
 
   passwordText.value = password;
 }
 
 // Copy password to clipboard
-function PassCopy() {
-  const passwordText = document.querySelector('#password');
+function PassCopy(eventObj) {
+  const passwordText = document.getElementById(eventObj.target.dataset.pass);
   navigator.clipboard.writeText(passwordText.value);
   const copiedText = passwordText.value;
   alert("Copied: " + copiedText);
 }
 
 // Toggle password options displaying on screen
-function ToggleHidden() {
+/* function toggleHidden() {
   //console.log(this.dataset.test);
-  const boolHidden = document.getElementById(this.dataset.linked); 
+  const boolHidden = document.getElementById(this.dataset.hide); 
   if (!boolHidden.classList.contains('hidden')) {
     boolHidden.classList.add('hidden');
   } else { boolHidden.classList.remove('hidden'); }
+} */
+
+function toggleHide(eventObj) {
+  const boolHidden = document.getElementById(eventObj.target.dataset.hide)/* () => {
+    try {
+      return document.getElementById(eventObj.target.dataset.hide)
+    }
+    catch (error) {
+      console.log('default to password-options'); return "password-options"
+    }
+  } */
+  if (!boolHidden.classList.contains('hidden')) {
+    boolHidden.classList.add('hidden');
+  } else { boolHidden.classList.remove('hidden')}
 }
 
+addGlobalEventListener('click', '#options', toggleHide);
+addGlobalEventListener('click', '#copy', PassCopy);
+addGlobalEventListener('click', '#generate', writePassword);
+
 // Add event listener to 'generate', 'copy' and 'options' buttons
-generateBtn.addEventListener('click', writePassword);
-copyBtn.addEventListener('click', PassCopy);
-optionsBtn.addEventListener('click', ToggleHidden);
+//generateBtn.addEventListener('click', writePassword);
+
+//copyBtn.addEventListener('click', PassCopy);
+
+//optionsBtn.addEventListener('click', toggleHidden);
+
+function addGlobalEventListener(typeOfEvent, selector, callback, stopPropagation=true) {
+  document.addEventListener(typeOfEvent, eventObj => {
+    if (eventObj.target.matches(selector)) { 
+      callback(eventObj);
+    }
+    if(stopPropagation){eventObj.stopPropagation();}
+  })
+}
+
+/* optionsBtn.addEventListener('click', eventObj => {
+  //const boolHidden = document.getElementById(optionsBtn.dataset.hide); 
+  const boolHidden = document.getElementById(eventObj.target.dataset.hide);
+  if (!boolHidden.classList.contains('hidden')) {
+    boolHidden.classList.add('hidden');
+  } else { boolHidden.classList.remove('hidden'); }
+  eventObj.stopPropagation();
+}); */
+
+/* addGlobalEventListener('click', "#options", func=> { 
+  console.log('test'); 
+}); */
+//toggleOptions();
