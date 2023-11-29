@@ -222,7 +222,7 @@ function writePassword() {
 }
 
 // Copy password to clipboard
-function PassCopy(params) {
+function PassCopy() {
   const passwordText = document.querySelector('#password');
   navigator.clipboard.writeText(passwordText.value);
   const copiedText = passwordText.value;
@@ -238,7 +238,7 @@ function ToggleHidden() {
   } else { boolHidden.classList.remove('hidden'); }
 }
 
-// Add event listener to generate button and options button
+// Add event listener to 'generate', 'copy' and 'options' buttons
 generateBtn.addEventListener('click', writePassword);
 copyBtn.addEventListener('click', PassCopy);
 optionsBtn.addEventListener('click', ToggleHidden);
