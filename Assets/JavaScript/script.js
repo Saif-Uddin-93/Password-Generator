@@ -216,7 +216,7 @@ function writePassword(eventObj) {
 }
 
 // Copy password to clipboard
-function PassCopy(eventObj) {
+function passCopy(eventObj) {
   const passwordText = document.getElementById(eventObj.target.dataset.event);
   navigator.clipboard.writeText(passwordText.value);
   const copiedText = passwordText.value;
@@ -233,7 +233,7 @@ function toggleHide(eventObj){
 
 // Add event listener to 'generate', 'copy' and 'options' buttons
 addGlobalEventListener('click', '#options', toggleHide);
-addGlobalEventListener('click', '#copy', PassCopy);
+addGlobalEventListener('click', '#copy', passCopy);
 addGlobalEventListener('click', '#generate', writePassword);
 
 function addGlobalEventListener(typeOfEvent, selector, callback, stopPropagation=true) {
