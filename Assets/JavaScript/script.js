@@ -125,18 +125,35 @@ outputPassLength.oninput = () => passSlider.value = outputPassLength.value;
 
 const specialCheckbox = document.getElementById("special-checkbox");
 const numbersCheckbox = document.getElementById("numbers-checkbox");
+const lowerCaseCheckbox = document.getElementById("numbers-checkbox");
+const upperCaseCheckbox = document.getElementById("numbers-checkbox");
 
 /* let passwordLength = (length) => {
   return length = length<minLength || length>maxLength ? Math.floor(Math.random()*(maxLength-minLength)+minLength) : length;
 }; */
 
 // --- Build characters array according to selected password options ---
-const characters = () => {
-  const arr = [lowerCasedCharacters, upperCasedCharacters];
+const characters = (selected) => {
+  //const arr = [lowerCasedCharacters, upperCasedCharacters];
+  const arr = [];
+  //const index = options.indexOf(selected.id)
+  if(characters.length===1) {
+    console.log("characters length is:", characters.length)
+    const optionsEl = document.querySelectorAll(".checkbox");
+    optionsEl.forEach(element => {
+      element.checked = false;
+    });
+    //characters[0].checked = false;
+    selected.checked = true;
+  }
   if (specialCheckbox.checked) arr.push(specialCharacters);
   if (numbersCheckbox.checked) arr.push(numericCharacters);
+  if (lowerCaseCheckbox.checked) arr.push(lowerCasedCharacters);
+  if (upperCaseCheckbox.checked) arr.push(upperCasedCharacters);
+  
+  characters.length = 0;
   return arr;
-};
+}
 
 // --- Function to prompt user for password options ---
 /*function getPasswordOptions() {
@@ -232,15 +249,21 @@ function toggleHide(eventObj){
 }
 
 // Add event listener to 'generate', 'copy' and 'options' buttons
-addGlobalEventListener('click', '#options', toggleHide);
-addGlobalEventListener('click', '#copy', passCopy);
-addGlobalEventListener('click', '#generate', writePassword);
+addGlobalEventListener('click', toggleHide, '#options');
+addGlobalEventListener('click', passCopy, '#copy');
+addGlobalEventListener('click', writePassword, '#generate');
+addGlobalEventListener('click', characters);
 
-function addGlobalEventListener(typeOfEvent, selector, callback, stopPropagation=true) {
+function addGlobalEventListener(typeOfEvent, callback, selector, stopPropagation=true) {
   document.addEventListener(typeOfEvent, (eventObj) => {
     if (eventObj.target.matches(selector)) { 
       callback(eventObj);
     }
+    if(eventObj.target.id==="special-checkbox" || eventObj.target.id==="numbers-checkbox" ||
+      eventObj.target.id==="lowercase-checkbox" || eventObj.target.id==="uppercase-checkbox") 
+      {
+        callback(eventObj.target);
+      }
     if(stopPropagation){eventObj.stopPropagation();}
   })
 }
