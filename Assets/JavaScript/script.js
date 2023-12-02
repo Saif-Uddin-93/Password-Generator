@@ -233,7 +233,7 @@ function writePassword(eventObj) {
 }
 
 // Copy password to clipboard
-function PassCopy(eventObj) {
+function passCopy(eventObj) {
   const passwordText = document.getElementById(eventObj.target.dataset.event);
   navigator.clipboard.writeText(passwordText.value);
   const copiedText = passwordText.value;
