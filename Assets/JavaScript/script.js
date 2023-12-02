@@ -123,18 +123,35 @@ outputPassLength.value = passSlider.value;
 passSlider.oninput = () => outputPassLength.value = passSlider.value;
 outputPassLength.oninput = () => passSlider.value = outputPassLength.value;
 
-const specialCheckbox = document.getElementById("special-checkbox");
-const numbersCheckbox = document.getElementById("numbers-checkbox");
+const checkedEl = (id) =>
+{
+  return document.querySelector(id);
+}
 
 /* let passwordLength = (length) => {
   return length = length<minLength || length>maxLength ? Math.floor(Math.random()*(maxLength-minLength)+minLength) : length;
 }; */
 
 // --- Build characters array according to selected password options ---
-const characters = () => {
-  const arr = [lowerCasedCharacters, upperCasedCharacters];
-  if (specialCheckbox.checked) arr.push(specialCharacters);
-  if (numbersCheckbox.checked) arr.push(numericCharacters);
+const characters = (eventObj) => {
+  const checked = document.getElementsByClassName("checkbox");
+  let checkedCount = 0;
+  for(let i=0; i<checked.length; i++)
+  {
+    if(checked[i].checked)
+    {
+      checkedCount++;
+    }
+  }
+  if (checkedCount===0 && eventObj!==undefined) 
+  {
+    eventObj.target.checked = true;
+  }
+  const arr = [];
+  if (checkedEl("#special-checkbox").checked) arr.push(specialCharacters);
+  if (checkedEl("#numbers-checkbox").checked) arr.push(numericCharacters);
+  if (checkedEl("#lowercase-checkbox").checked) arr.push(lowerCasedCharacters);
+  if (checkedEl("#uppercase-checkbox").checked) arr.push(upperCasedCharacters);
   return arr;
 };
 
@@ -208,37 +225,40 @@ function generatePassword() {
 
 //alert(`Password is: ${generatePassword().pass}\nPassword Length is: ${generatePassword().passLength}`);
 
-// Get references to the #generate, #copy and #options element
-const generateBtn = document.querySelector('#generate');
-const copyBtn = document.querySelector('#copy');
-const optionsBtn = document.querySelector('#options');
-
 // Write password to the #password input
-function writePassword() {
+function writePassword(eventObj) {
   const password = generatePassword().pass;
-  const passwordText = document.querySelector('#password');
-
+  const passwordText = document.getElementById(eventObj.target.dataset.event);
   passwordText.value = password;
 }
 
 // Copy password to clipboard
-function passCopy() {
-  const passwordText = document.querySelector('#password');
+function passCopy(eventObj) {
+  const passwordText = document.getElementById(eventObj.target.dataset.event);
   navigator.clipboard.writeText(passwordText.value);
   const copiedText = passwordText.value;
   alert("Copied: " + copiedText);
 }
 
 // Toggle password options displaying on screen
-function toggleHidden() {
-  //console.log(this.dataset.test);
-  const boolHidden = document.getElementById(this.dataset.linked); 
-  if (!boolHidden.classList.contains('hidden')) {
-    boolHidden.classList.add('hidden');
-  } else { boolHidden.classList.remove('hidden'); }
+function toggleHide(eventObj){
+  const optionsBtn = document.getElementById(eventObj.target.dataset.event);
+  if (!optionsBtn.classList.contains('hidden')) {
+    optionsBtn.classList.add('hidden');
+  } else { optionsBtn.classList.remove('hidden')}
 }
 
 // Add event listener to 'generate', 'copy' and 'options' buttons
-generateBtn.addEventListener('click', writePassword);
-copyBtn.addEventListener('click', passCopy);
-optionsBtn.addEventListener('click', toggleHidden);
+addGlobalEventListener('click', toggleHide, '#options');
+addGlobalEventListener('click', PassCopy, '#copy');
+addGlobalEventListener('click', writePassword, '#generate');
+addGlobalEventListener('click', characters, ".checkbox")
+
+function addGlobalEventListener(typeOfEvent, callback, selector, stopPropagation=true) {
+  document.addEventListener(typeOfEvent, (eventObj) => {
+    if (eventObj.target.matches(selector)) { 
+      callback(eventObj);
+    }
+    if(stopPropagation){eventObj.stopPropagation();}
+  })
+}

@@ -17,6 +17,10 @@ body {
   background-color: #f9fbfd;
 }
 
+#checkbox-description {
+  padding: 50px;
+}
+
 .wrapper {
   padding-top: 30px;
   padding-left: 20px;
@@ -62,6 +66,7 @@ li label {
 
 ul
 {
+  /* display: flex; */
   list-style: none;
   padding: 0;
 }
@@ -188,8 +193,31 @@ button[disabled] {
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width : 689px) {
   .btn {
     font-size: 0.8rem;
+  }
+  #checkbox-description {
+    padding: 50px 40px;
+  }
+}
+
+@media (max-width : 657px) {
+  #checkbox-description {
+    /* padding: 50px 10px !important; */
+    padding: 0 !important;
+    justify-self: center;
+    align-self: center;
+    padding-left: 35px !important;
+  }
+}
+
+@media (max-width : 577px) {
+  #checkbox-description {
+    padding: 0 !important;
+    padding-left: 0 !important;
+  }
+  h2 {
+    font-size: 1.5rem;
   }
 }

@@ -25,9 +25,9 @@
           ></textarea>
         </div>        
         <div class="card-footer">
-          <button id="generate" class="btn">Generate Password</button>
-          <button id="copy" class="btn">Copy Password</button>
-          <button id="options" class="btn" data-linked="password-options">Options</button>
+          <button id="generate" class="btn" data-event="password">Generate Password</button>
+          <button id="copy" class="btn" data-event="password">Copy Password</button>
+          <button id="options" class="btn" data-event="password-options">Options</button>
         </div>
         <form id="password-options" class="hidden">
           <label for="password-slider">Password Length:</label>
@@ -36,13 +36,24 @@
           <ul>
             <li>
               <label for="special-checkbox">Special characters</label>
-              <input type="checkbox" name="option1" value="true" checked class = "checkbox" id="special-checkbox">
+              <input type="checkbox" value="true" checked class = "checkbox" id="special-checkbox">
             </li>
             <li>
               <label for="numbers-checkbox">Numbers</label>
-              <input type="checkbox" name="option1" value="true" checked class = "checkbox" id="numbers-checkbox">
+              <input type="checkbox" value="true" checked class = "checkbox" id="numbers-checkbox">
+            </li>
+            <li>
+              <label for="lowercase-checkbox">Lowercase</label>
+              <input type="checkbox" value="true" checked class = "checkbox" id="lowercase-checkbox">
+            </li>
+            <li>
+              <label for="uppercase-checkbox">Uppercase</label>
+              <input type="checkbox" value="true" checked class = "checkbox" id="uppercase-checkbox">
             </li>
           </ul>
+          <span id="checkbox-description">
+            (At least 1 checkbox must be selected)
+          </span>
         </form>
       </div>
     </div>
