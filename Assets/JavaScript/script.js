@@ -250,7 +250,7 @@ function toggleHide(eventObj){
 
 // Add event listener to 'generate', 'copy' and 'options' buttons
 addGlobalEventListener('click', toggleHide, '#options');
-addGlobalEventListener('click', PassCopy, '#copy');
+addGlobalEventListener('click', passCopy, '#copy');
 addGlobalEventListener('click', writePassword, '#generate');
 addGlobalEventListener('click', characters, ".checkbox")
 
