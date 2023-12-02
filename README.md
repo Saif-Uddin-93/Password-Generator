@@ -33,7 +33,7 @@ For this project, the developer tool I'll be using is VS Code. A lightweight IDE
 
 ## Usage
 
-Below is a screenshot of the console output of the published webpage:
+By default clicking on the 'Generate Password' button outputs a 16 character password that includes all 4 character types. Clicking on the 'Options' button will reveal the options to change the length of the password and which types to include in the password. The 'Copy Password' doesn't copy the password on mobile devices but does function properly on a Windows version of Chrome. Below is a screenshot of the console output of the published webpage:
 
 ![screenshot of console output](./Assets/Images/Password-Generator.png)
 
