@@ -123,10 +123,7 @@ outputPassLength.value = passSlider.value;
 passSlider.oninput = () => outputPassLength.value = passSlider.value;
 outputPassLength.oninput = () => passSlider.value = outputPassLength.value;
 
-const checkedEl = (id) =>
-{
-  return document.querySelector(id);
-}
+const checkedEl = (id) => document.querySelector(id);
 
 /* let passwordLength = (length) => {
   return length = length<minLength || length>maxLength ? Math.floor(Math.random()*(maxLength-minLength)+minLength) : length;
@@ -136,17 +133,8 @@ const checkedEl = (id) =>
 const characters = (eventObj) => {
   const checked = document.getElementsByClassName("checkbox");
   let checkedCount = 0;
-  for(let i=0; i<checked.length; i++)
-  {
-    if(checked[i].checked)
-    {
-      checkedCount++;
-    }
-  }
-  if (checkedCount===0 && eventObj!==undefined) 
-  {
-    eventObj.target.checked = true;
-  }
+  for(let i=0; i<checked.length; i++)if(checked[i].checked)checkedCount++;
+  if (checkedCount===0 && eventObj!==undefined) eventObj.target.checked = true;
   const arr = [];
   if (checkedEl("#special-checkbox").checked) arr.push(specialCharacters);
   if (checkedEl("#numbers-checkbox").checked) arr.push(numericCharacters);
@@ -161,7 +149,7 @@ const characters = (eventObj) => {
 } */
 
 // --- Function for getting a random element from an array ---
-const getRandom = (arr) => {/* if(arr !== undefined) */ return arr[Math.floor(Math.random()*arr.length)];};
+const getRandom = (arr) =>/* if(arr !== undefined) */arr[Math.floor(Math.random()*arr.length)];
 
 /* let userInput = 0;
 function PromptUser () {
