@@ -4,14 +4,6 @@
   box-sizing: border-box;
 }
 
-html,
-body,
-.wrapper {
-  /* height: 100%; */
-  margin: 0;
-  padding: 0;
-}
-
 body {
   font-family: sans-serif;
   background-color: #f9fbfd;
@@ -198,13 +190,6 @@ button[disabled] {
     font-size: 0.8rem;
   }
   #checkbox-description {
-    padding: 50px 40px;
-  }
-}
-
-@media (max-width : 657px) {
-  #checkbox-description {
-    /* padding: 50px 10px !important; */
     padding: 0 !important;
     justify-self: center;
     align-self: center;
