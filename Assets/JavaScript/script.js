@@ -173,9 +173,9 @@ function generatePassword() {
       console.log("before:",pass.join(''));
       for(let index=0; index<characters().length; index++){
         if(!containsCharacters(pass.join(''), characters()[index])){
-          
-          let newCharIndex = Math.floor(Math.random(passLength)*passLength);
-          while(usedIndecies.includes(newCharIndex))newCharIndex = Math.floor(Math.random(passLength)*passLength);
+          let newCharIndex;
+          do newCharIndex = Math.floor(Math.random(passLength)*passLength);
+          while(usedIndecies.includes(newCharIndex));
           pass[newCharIndex] = getRandom(characters()[index]);
           usedIndecies.push(newCharIndex);
           console.log(pass[newCharIndex]);
