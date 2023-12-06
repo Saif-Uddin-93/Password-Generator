@@ -162,7 +162,7 @@ function generatePassword() {
   const passLength = Number(passSlider.value) || Number(outputPassLength.value);
   let pass = [];
   // --- Created loop without for-loop using tail recursion ---
-  function loop (i=0, password="", usedIndecies=[])
+  function loop (i=0, password="", usedIndecies=[], newCharIndex)
   {
     pass=password.split('');
     let p = getRandom(characters()[Math.floor(Math.random()*characters().length)]);
@@ -173,7 +173,6 @@ function generatePassword() {
       console.log("before:",pass.join(''));
       for(let index=0; index<characters().length; index++){
         if(!containsCharacters(pass.join(''), characters()[index])){
-          let newCharIndex;
           do newCharIndex = Math.floor(Math.random(passLength)*passLength);
           while(usedIndecies.includes(newCharIndex));
           pass[newCharIndex] = getRandom(characters()[index]);
@@ -202,23 +201,38 @@ function containsCharacters(inputString, charArray) {
 // Write password to the #password input
 function writePassword(eventObj) {
   const password = generatePassword().pass;
-  const passwordText = htmlElement("#"+eventObj.target.dataset.event);
+  const passwordText = htmlElement(eventObj.target.dataset.linked);
   passwordText.value = password;
 }
 
 // Copy password to clipboard
-function passCopy(eventObj) {
-  const passwordText = htmlElement("#"+eventObj.target.dataset.event);
-  navigator.clipboard.writeText(passwordText.value);
-  const copiedText = passwordText.value;
-  alert("Copied: " + copiedText);
+let dataList = {
+  //linked : (eventObj) => eventObj.dataList.linked
+  linked : function (eventObj) { return eventObj.target.dataList.linked},
+  optionsList : "#password-options",
+  copyBtn : htmlElement("#copy"),
+  copyContent : "Copy Password",
+  passContent : "#password"
 }
 
+function passCopy(eventObj) {
+  const passwordText = htmlElement(dataList.passContent);
+  navigator.clipboard.writeText(passwordText.value);
+  eventObj.target.textContent = "Copied!";
+  //const copiedText = passwordText.value;
+  //alert("Copied: " + copiedText);
+}
+
+const changeText = (obj, txt) => obj.textContent=txt;
+
 // Toggle password options displaying on screen
-function toggleHide(eventObj){
-  const optionsBtn = htmlElement("#"+eventObj.target.dataset.event);
-  if (!optionsBtn.classList.contains('hidden')) optionsBtn.classList.add('hidden');
-  else optionsBtn.classList.remove('hidden');
+function toggleHide(eventObj, css="hidden", data=dataList.optionsList){
+  //data=dataList.linked(eventObj);
+  //data = dataList
+  const targetElement = htmlElement(data);
+  //const targetElement = htmlElement(eventObj.target.dataset.linked);
+  if (!targetElement.classList.contains(css)) targetElement.classList.add(css);
+  else targetElement.classList.remove(css);
 }
 
 // Add event listener to 'generate', 'copy' and 'options' buttons

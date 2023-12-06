@@ -131,6 +131,10 @@ li {
   background-color: rgb(71, 157, 2);
 }
 
+.copied {
+  padding: 0px 50px !important;
+}
+
 #options {
   background-color: rgb(0, 42, 255);
 }
