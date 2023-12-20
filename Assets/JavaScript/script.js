@@ -1,104 +1,14 @@
-/* Generate a password when the button is clicked
-Present a series of prompts for password criteria
-Length of password
-At least 8 characters but no more than 128.
-Character types
-Lowercase
-Uppercase
-Numeric
-Special characters ($@%&*, etc)
-Code should validate for each input and at least one character type should be selected
-Once prompts are answered then the password should be generated and displayed in an alert or written to the page */
-
 // --- Array of special characters to be included in password ---
-const specialCharacters = [
-  '@',
-  '%',
-  '+',
-  '\\',
-  '/',
-  "'",
-  '!',
-  '#',
-  '$',
-  '^',
-  '?',
-  ':',
-  ',',
-  ')',
-  '(',
-  '}',
-  '{',
-  ']',
-  '[',
-  '~',
-  '-',
-  '_',
-  '.'
-];
+const specialCharacters = ['@','%','+','\\','/',"'",'!','#','$','^','?',':',',',')','(','}','{',']','[','~','-','_','.'];
 
 // --- Array of numeric characters to be included in password ---
-const numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+const numericCharacters = ['0','1','2','3','4','5','6','7','8','9'];
 
 // --- Array of lowercase characters to be included in password ---
-const lowerCasedCharacters = [
-  'a',
-  'b',
-  'c',
-  'd',
-  'e',
-  'f',
-  'g',
-  'h',
-  'i',
-  'j',
-  'k',
-  'l',
-  'm',
-  'n',
-  'o',
-  'p',
-  'q',
-  'r',
-  's',
-  't',
-  'u',
-  'v',
-  'w',
-  'x',
-  'y',
-  'z'
-];
+const lowerCasedCharacters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
 
 // --- Array of uppercase characters to be included in password ---
-const upperCasedCharacters = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'T',
-  'U',
-  'V',
-  'W',
-  'X',
-  'Y',
-  'Z'
-];
+const upperCasedCharacters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 
 /* const minLength = 8;
 const maxLength = 128;
@@ -205,27 +115,23 @@ function writePassword(eventObj) {
 function passCopy(eventObj) {
   const passwordText = htmlElement("#password");
   navigator.clipboard.writeText(passwordText.value);
-  eventObj.target.textContent = "Copied!";
-  eventObj.target.classList.add("copied")
-  //toggle(eventObj, "#copy", data)
+  copyBtnText("add", "Copied!")
   //const copiedText = passwordText.value;
   //alert("Copied: " + copiedText);
 }
 
-function copyBtnText(){
-  changeText("#copy", 'Copy Password')
-  cssClass("#copy", "remove", "copied");
+function copyBtnText(action="", text=""){
+  changeText("#copy", text)
+  cssClass("#copy", action, "copied");
 }
 
 // Toggle password options displaying on screen
-function toggle(eventObj, css="hidden", data="#password-options"){
-  const targetElement = htmlElement(data);
-  if (!targetElement.classList.contains(css)) targetElement.classList.add(css);
-  else targetElement.classList.remove(css);
+function toggleOptions(eventObj, css="hidden", id="#password-options"){
+  cssClass(id, "toggle", css)
 }
 
 // Add event listener to 'generate', 'copy' and 'options' buttons
-addGlobalEventListener('click', toggle, '#options');
+addGlobalEventListener('click', toggleOptions, '#options');
 addGlobalEventListener('click', passCopy, '#copy');
 addGlobalEventListener('click', writePassword, '#generate');
 addGlobalEventListener('click', characters, ".checkbox")
