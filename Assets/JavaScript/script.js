@@ -114,7 +114,7 @@ function loop (arr=[], num=minLength, max=maxLength){
 loop(range); */
 //const range = loop().arr;
 //console.log(range);
-const htmlElement = (id) => document.querySelector(id);
+
 const passSlider = htmlElement("#password-slider");
 const outputPassLength = htmlElement("#password-length-value");
 // --- display inital value in HTML before any input with slider ---
@@ -192,10 +192,7 @@ function generatePassword() {
   return {pass: pass, passLength: passLength};
 }
 
-function containsCharacters(inputString, charArray) {
-  return charArray.some(char => inputString.includes(char));
-}
-
+const containsCharacters = (inputString, charArray) => charArray.some(char => inputString.includes(char));
 //alert(`Password is: ${generatePassword().pass}\nPassword Length is: ${generatePassword().passLength}`);
 
 // Write password to the #password input
@@ -209,12 +206,16 @@ function passCopy(eventObj) {
   const passwordText = htmlElement("#password");
   navigator.clipboard.writeText(passwordText.value);
   eventObj.target.textContent = "Copied!";
+  eventObj.target.classList.add("copied")
   //toggle(eventObj, "#copy", data)
   //const copiedText = passwordText.value;
   //alert("Copied: " + copiedText);
 }
 
-const changeText = (obj, txt) => obj.textContent=txt;
+function copyBtnText(){
+  changeText("#copy", 'Copy Password')
+  cssClass("#copy", "remove", "copied");
+}
 
 // Toggle password options displaying on screen
 function toggle(eventObj, css="hidden", data="#password-options"){
@@ -228,10 +229,3 @@ addGlobalEventListener('click', toggle, '#options');
 addGlobalEventListener('click', passCopy, '#copy');
 addGlobalEventListener('click', writePassword, '#generate');
 addGlobalEventListener('click', characters, ".checkbox")
-
-function addGlobalEventListener(typeOfEvent, callback, selector, stopPropagation=true) {
-  document.addEventListener(typeOfEvent, (eventObj) => {
-    if (eventObj.target.matches(selector)) callback(eventObj);
-    if (stopPropagation) eventObj.stopPropagation();
-  })
-}

@@ -132,7 +132,8 @@ li {
 }
 
 .copied {
-  padding: 0px 50px !important;
+  padding-left: 73px !important;
+  padding-right: 74px !important;
 }
 
 #options {
