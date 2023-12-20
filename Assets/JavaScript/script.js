@@ -201,24 +201,15 @@ function containsCharacters(inputString, charArray) {
 // Write password to the #password input
 function writePassword(eventObj) {
   const password = generatePassword().pass;
-  const passwordText = htmlElement(eventObj.target.dataset.linked);
+  const passwordText = htmlElement("#password");
   passwordText.value = password;
 }
 
-// Copy password to clipboard
-let dataList = {
-  //linked : (eventObj) => eventObj.dataList.linked
-  linked : function (eventObj) { return eventObj.target.dataList.linked},
-  optionsList : "#password-options",
-  copyBtn : htmlElement("#copy"),
-  copyContent : "Copy Password",
-  passContent : "#password"
-}
-
 function passCopy(eventObj) {
-  const passwordText = htmlElement(dataList.passContent);
+  const passwordText = htmlElement("#password");
   navigator.clipboard.writeText(passwordText.value);
   eventObj.target.textContent = "Copied!";
+  //toggle(eventObj, "#copy", data)
   //const copiedText = passwordText.value;
   //alert("Copied: " + copiedText);
 }
@@ -226,17 +217,14 @@ function passCopy(eventObj) {
 const changeText = (obj, txt) => obj.textContent=txt;
 
 // Toggle password options displaying on screen
-function toggleHide(eventObj, css="hidden", data=dataList.optionsList){
-  //data=dataList.linked(eventObj);
-  //data = dataList
+function toggle(eventObj, css="hidden", data="#password-options"){
   const targetElement = htmlElement(data);
-  //const targetElement = htmlElement(eventObj.target.dataset.linked);
   if (!targetElement.classList.contains(css)) targetElement.classList.add(css);
   else targetElement.classList.remove(css);
 }
 
 // Add event listener to 'generate', 'copy' and 'options' buttons
-addGlobalEventListener('click', toggleHide, '#options');
+addGlobalEventListener('click', toggle, '#options');
 addGlobalEventListener('click', passCopy, '#copy');
 addGlobalEventListener('click', writePassword, '#generate');
 addGlobalEventListener('click', characters, ".checkbox")
