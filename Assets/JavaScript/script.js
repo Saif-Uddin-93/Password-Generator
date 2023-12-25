@@ -72,9 +72,8 @@ function generatePassword() {
   const passLength = Number(passSlider.value) || Number(outputPassLength.value);
   let pass = [];
   // --- Created loop without for-loop using tail recursion ---
-  function loop (i=0, password="", usedIndecies=[], newCharIndex)
+  function loop (i=0, usedIndecies=[], newCharIndex)
   {
-    pass=password.split('');
     let p = getRandom(characters()[Math.floor(Math.random()*characters().length)]);
     if(pass.length!==passLength){pass[i]=p;}
     i++;
